@@ -17,7 +17,7 @@
 <script>
 
            // Import the functions you need from the SDKs you need
-              import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
+              /*import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
               import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-analytics.js";
               // TODO: Add SDKs for Firebase products that you want to use
               // https://firebase.google.com/docs/web/setup#available-libraries
@@ -33,11 +33,11 @@
               messagingSenderId: "676758915564",
               appId: "1:676758915564:web:1ff84e1ebc39d8ad3dd8c9",
               measurementId: "G-Q7RY921WJP"
-              };
+              };*/
 
               // Initialize Firebase
-              const app = initializeApp(firebaseConfig);
-              const analytics = getAnalytics(app);
+              //const app = initializeApp(firebaseConfig);
+              //const analytics = getAnalytics(app);
 
               const urlParams = new URLSearchParams(window.location.search);
               const player_id = urlParams.get('viewer_id');
@@ -67,21 +67,21 @@
                                 // Ошибка
                                 console.log(error);
                               });
-                     logEvent(analytics, 'launch_game');
+                     //logEvent(analytics, 'launch_game');
               }
 
               
 
               window.ShowInterstitial = function showInterstitial() {
                      vkBridge.send("VKWebAppShowNativeAds", {"ad_format": "interstitial"});
-                     logEvent(analytics, 'show_interstitial');
+                     //logEvent(analytics, 'show_interstitial');
               }
 
               window.ShowRewarded = function showRewarded() {
                      vkBridge.send("VKWebAppShowNativeAds", {ad_format:"reward"})
                             .then(data => window.OnRewardedVideoShown(data.result))
                             .catch(error => console.log(error));
-                     logEvent(analytics, 'show_rewarded');
+                     //logEvent(analytics, 'show_rewarded');
               }
 
               window.BuyInApp = function buyInApp(inapp_id) {
@@ -132,7 +132,7 @@
                      vkBridge.send("VKWebAppShowInviteBox", {})
                              .then(data => console.log(data.success))
                              .catch(error => console.log(error));
-                     logEvent(analytics, 'invite_friends');
+                    // logEvent(analytics, 'invite_friends');
               }
 
               window.ShowRecords = function showRecords(lvl) {
