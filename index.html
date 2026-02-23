@@ -70,7 +70,7 @@
                      logEvent(analytics, 'launch_game');
               }
 
-              window.InitVkWebApp();
+              
 
               window.ShowInterstitial = function showInterstitial() {
                      vkBridge.send("VKWebAppShowNativeAds", {"ad_format": "interstitial"});
@@ -140,6 +140,8 @@
                             .then(data => console.log(data.success))
                             .catch(error => console.log(error));
               }
+
+              window.InitVkWebApp();
 
               function handleMouseDown(evt) {
                 evt.preventDefault();
