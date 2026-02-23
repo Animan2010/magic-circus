@@ -70,11 +70,37 @@
                      //logEvent(analytics, 'launch_game');
               }
 
+              // Время запуска страницы
+              const appStartTime = Date.now();
               
+              // Время последнего показа interstitial
+              let lastInterstitialTime = 0;
+              
+              // Ограничения
+              const MIN_TIME_AFTER_START = 30000;   // 30 секунд
+              const MIN_INTERVAL_BETWEEN = 60000;   // 60 секунд
 
               window.ShowInterstitial = function showInterstitial() {
-                     vkBridge.send("VKWebAppShowNativeAds", {"ad_format": "interstitial"});
-                     //logEvent(analytics, 'show_interstitial');
+
+                  const now = Date.now();
+              
+                  // Проверка: прошло ли 30 секунд с запуска
+                  if (now - appStartTime < MIN_TIME_AFTER_START) {
+                      console.log("Interstitial blocked: too early after start");
+                      return;
+                  }
+              
+                  // Проверка: прошло ли 60 секунд с прошлого показа
+                  if (now - lastInterstitialTime < MIN_INTERVAL_BETWEEN) {
+                      console.log("Interstitial blocked: cooldown active");
+                      return;
+                  }
+              
+                  // Всё ок — показываем
+                  lastInterstitialTime = now;
+              
+                  vkBridge.send("VKWebAppShowNativeAds", { ad_format: "interstitial" })
+                      .catch(error => console.log(error));
               }
 
               window.ShowRewarded = function showRewarded() {
